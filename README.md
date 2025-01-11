@@ -20,7 +20,6 @@ shared_ptr is a smart pointer that allows multiple shared_ptr instances to share
 
 weak_ptr is a non-owning smart pointer that observes a resource managed by shared_ptr, breaking ownership cycles and enabling safe access to resources without extending their lifetime.
 
-
 shared_ptr and weak_ptr do not directly manage the object. They do it indirectly through the control block. The control block will stay alive until no associated shared_ptr/weak_ptr lives.
 
 Control block manages:
@@ -28,6 +27,7 @@ Control block manages:
 * The reference count (number of shared_ptr instances owning the resource).
 * The weak count (number of weak_ptr instances observing the resource).
 * The pointer to object or the object itself.
+![impl](img/control_block_img.jpg)
 
 ### Optimizations
 There are two control block realization in my code. First one with pointer to the object, second one with object as a field. A control block with an object inside is created only when the user calls make_shared. This allows only one expensive memory allocation operation to be used to create a control block and an object.
